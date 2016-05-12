@@ -18,17 +18,14 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             unique: true
         },
-        name: {
+        username: {
             type: DataTypes.STRING,
             required: true
         },
         email: {
             type: DataTypes.STRING,
             unique: true,
-            required: true,
-            validate: {
-                isEmail: true
-            }
+            required: true
         },
         firstName: DataTypes.STRING,
         lastName: DataTypes.STRING,

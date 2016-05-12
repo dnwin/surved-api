@@ -6,6 +6,7 @@ SurvedAPI
 ###### Installation
 * Clone the repository
 * Install modules using `npm install`
+* Configure the `.env` file in root to set your JWTsecret, port, and environment variables.
 * Start app with `npm start`
 
 ###### Setting up Mysql

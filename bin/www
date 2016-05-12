@@ -27,7 +27,7 @@ var server = http.createServer(app);
  */
 
 // Force sync the sql database if in development
-models.sequelize.sync({force: process.env.NODE_ENV === "production"}).then(function () {
+models.sequelize.sync({force: process.env.NODE_ENV !== "production"}).then(function () {
   console.log('Server listening on PORT: ' + port);
   server.listen(port);
   server.on('error', onError);

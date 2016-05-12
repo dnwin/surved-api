@@ -3,20 +3,48 @@
  */
 
 /**
- * Authentication controller containing oauth passport authentication and callbacks.
+ * Authentication controller containing registration, login, logout.
  */
 
 "use strict";
-const login = (req, res) => {
+const 
+    userModel = require('../models/user.model'),
+    util = require('../util/util.js');
+
+/**
+ * 
+ * @param req
+ * @param res
+ */
+const registerUser = (req, res) => {
+     const data = req.body;
+    // Check for required fields
+     
+    if (!data.firstName || !data.lastName || 
+        !data.username || !data.password || !data.email) {
+        const err = util.genErr('Values for: username, lastName, ' +
+            'firstName, password are required', 400);
+        util.sendJsonResErr(res, err);
+        return;
+    }
     
-}
-const logout = (req, res) => {
-    
+    userModel
+        .register(data.username, data.email, data.firstName, data.lastName, data.password)
+        .then((token) => {
+            util.sendJsonResponse(res, 201, token);
+        })
+        .catch((err) => {
+            util.sendJsonResponse(res, 400, err);
+        });
+};
+
+const loginUser = (req, res) => {
+
 };
 
 
 
 module.exports = {
-    login : login,
-    logout : logout
+    registerUser : registerUser,
+    loginUser : loginUser,
 };
