@@ -1,0 +1,50 @@
+{
+    "development": {
+    "username": "root",
+        "password": "root",
+        "database": "surved_dev",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+},
+    "test": {
+    "username": "root",
+        "password": "root",
+        "database": "surved_test",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+},
+    "production": {
+    "username": "root",
+        "password": "root",
+        "database": "surved",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+},
+    "knexdevelopment" : {
+        "client": "mysql",
+        "connection": {
+            "host"     : "127.0.0.1",
+            "user"     : "root",
+            "password" : "root",
+            "database" : "surved_dev"
+        }
+    },
+    "knextest" : {
+        "client": "mysql",
+        "connection": {
+            "host"     : "127.0.0.1",
+            "user"     : "root",
+            "password" : "root",
+            "database" : "surved_test"
+        }
+    },
+    "knexproduction" : {
+        "client": "mysql",
+        "connection": {
+            "host"     : "127.0.0.1",
+            "user"     : "root",
+            "password" : "root",
+            "database" : "surved"
+        }
+    }
+}
