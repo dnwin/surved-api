@@ -1,6 +1,9 @@
+/**
+ * Created by dennis on 5/13/16.
+ */
 "use strict";
 /**
- * Index for '/v1/api/*' entry point
+ * Index for '/admin/v1/*' entry point
  */
 
 const express = require('express');

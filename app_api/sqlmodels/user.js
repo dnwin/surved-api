@@ -31,6 +31,12 @@ module.exports = function(sequelize, DataTypes) {
         lastName: DataTypes.STRING,
         salt: DataTypes.STRING,
         hash: DataTypes.STRING(1500),
+        role: {
+          type: DataTypes.ENUM,
+            allowNull: false,
+            values: ['user', 'admin'],
+            defaultValue: 'user'
+        },
         status: {
             type: DataTypes.ENUM,
             allowNull: false,

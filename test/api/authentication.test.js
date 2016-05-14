@@ -53,5 +53,24 @@ describe('Authentication', function() {
             })
     });
     
+    it('responds with 401 when token is not provided for api route', (done) => {
+        request(app)
+            .get('/api/v1/questions')
+            .then((res) => {
+                expect(res.status).to.be(401);
+                expect(res.text).to.contain("No authorization token was found");
+                done();
+            })
+    });
 
+    it('responds with 401 when token is not provided for admin route', (done) => {
+        request(app)
+            .get('/api/v1/admin')
+            .then((res) => {
+                expect(res.status).to.be(401);
+                expect(res.text).to.contain("No authorization token was found");
+                done();
+            })
+    });
+    
 });

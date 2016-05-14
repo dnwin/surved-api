@@ -46,5 +46,5 @@ const loginUser = (req, res) => {
 
 module.exports = {
     registerUser : registerUser,
-    loginUser : loginUser,
+    loginUser : loginUser
 };
