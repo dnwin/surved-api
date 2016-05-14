@@ -15,10 +15,9 @@ const models = require('../sqlmodels'),
  * @param password
  * @returns {Promise}
  */
-const register = (username, email, firstName, lastName, password) => {
+const register = (email, firstName, lastName, password) => {
     const newUser = User.build({});
     
-    newUser.setUsername(username);
     newUser.email = email;
     newUser.firstName = firstName;
     newUser.lastName = lastName;

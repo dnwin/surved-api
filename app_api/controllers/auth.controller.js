@@ -20,8 +20,7 @@ const registerUser = (req, res) => {
      const data = req.body;
     // Check for required fields
      
-    if (!data.firstName || !data.lastName || 
-        !data.username || !data.password || !data.email) {
+    if (!data.firstName || !data.lastName || !data.password || !data.email) {
         const err = util.genErr('Values for: username, lastName, ' +
             'firstName, password are required', 400);
         util.sendJsonResErr(res, err);
@@ -29,7 +28,7 @@ const registerUser = (req, res) => {
     }
     
     userModel
-        .register(data.username, data.email, data.firstName, data.lastName, data.password)
+        .register(data.email, data.firstName, data.lastName, data.password)
         .then((token) => {
             util.sendJsonResponse(res, 201, token);
         })

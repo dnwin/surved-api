@@ -18,10 +18,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             unique: true
         },
-        username: {
-            type: DataTypes.STRING,
-            required: true
-        },
         email: {
             type: DataTypes.STRING,
             unique: true,
@@ -45,9 +41,6 @@ module.exports = function(sequelize, DataTypes) {
         }
     }, {
         instanceMethods: {
-            setUsername: function(username) {
-                this.username = username.toString().toLowerCase();
-            },
             setPassword: function(password) {
                 this.salt = crypto.randomBytes(16).toString('hex');
                 this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');

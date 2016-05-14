@@ -21,7 +21,6 @@ describe('Authentication', function() {
     });
 
     const registrationBuild = {
-        "username" : "testuser",
         "firstName" :"test",
         "lastName" : "user",
         "email" : "test@user.com",
@@ -39,9 +38,9 @@ describe('Authentication', function() {
             })
     });
 
-    it('returns an error on missing username', (done) => {
+    it('returns an error on missing email', (done) => {
         const copy = Object.assign({}, registrationBuild);
-        delete copy.username;
+        delete copy.email;
         console.log(copy);
         request(app)
             .post('/auth/register')
