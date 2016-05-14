@@ -8,11 +8,13 @@
 
 "use strict";
 const 
-    userModel = require('../models/user.model'),
+    UserModel = require('../models/user.model'),
     util = require('../util/util.js');
 
+const User = new UserModel();
+
 /**
- * 
+ * Registers a new user
  * @param req
  * @param res
  */
@@ -27,10 +29,18 @@ const registerUser = (req, res) => {
         return;
     }
     
-    userModel
-        .register(data.email, data.firstName, data.lastName, data.password)
-        .then((token) => {
-            util.sendJsonResponse(res, 201, token);
+    User
+        .create(data)
+        .then((user) => {
+            const tokenBody = {};
+            try {
+                tokenBody.token = UserModel.generateJwt(user);
+            }
+            catch(err) {
+                throw err
+            }
+            
+            util.sendJsonResponse(res, 201, tokenBody);
         })
         .catch((err) => {
             util.sendJsonResponse(res, 400, err);

@@ -7,7 +7,7 @@ var expect   = require('expect.js');
 var request  = require('supertest');
 
 
-describe('Employees REST Api', function() {
+describe('Server', function() {
 
 
 

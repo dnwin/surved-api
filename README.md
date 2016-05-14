@@ -3,6 +3,11 @@ SurvedAPI
 * API for Surved survey app.
 * Built on a Javascript stack: Sequelize.js, Node.js, Express.js
 
+###### Server requirements
+* Linux (Ubuntu 14+)
+* MySQL
+* Node v6 & npm
+
 ###### Installation
 * Clone the repository
 * Install modules using `npm install`
@@ -14,27 +19,21 @@ Formatting is `Key=Value` followed by newline.
 
 Key | Value | Description
 --- | --- | ---
-`JWT_SECRET` | Str | Secret string used for auth token creation, do not expose this value or upload it to your repo.
+`JWT_SECRET` | Str | Secret string used for auth token creation (Required).
 `PORT` | Int | Sets the port of the server (Optional)
-`NODE_ENV` | Const Str | Server environment: `production`, `development`, `test` (Optional, defaults to `development`)
-
-###### Setting up Mysql
-* This app requires MySQL 5.7 with native `json` support.
-Ubuntu 16 comes with it fully supported. 
-For Ubuntu 14.04 instructions: https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-14-04
+`NODE_ENV` | Const Str | Server environment: `production`, `development`, `test` (Optional, default = `development`)
 
 ###### Tests
 * You can run the tests by executing `npm test`.
 
 ---
 
-## Authentication
-
-###### Registration and Login `/auth/`
+## Authentication `/auth/*`
 This route does not require an authentication token
 
-`GET /auth/registration`
+###### Registration `GET /auth/register`
 Allows the user to register for a new account. Will respond with a JWT token on success.
+
 Key | Type | Description | Constraints
 --- | --- | --- | ---
 email | Str | User email | not-null, unique
