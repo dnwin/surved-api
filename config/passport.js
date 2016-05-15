@@ -3,12 +3,12 @@
  */
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var models = require('../app_api/models');
+var models = require('../app_api/sqlmodels');
 
 var User = models.User;
 
 passport.use(new LocalStrategy({
-        usernameField: 'username'
+        usernameField: 'email'
     },
     function(username, password, done) {
         User.findOne({

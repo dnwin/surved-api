@@ -9,7 +9,8 @@
 "use strict";
 const 
     UserModel = require('../models/user.model'),
-    util = require('../util/util.js');
+    util = require('../util/util.js'),
+    passport = require('passport');
 
 const User = new UserModel();
 
@@ -32,15 +33,7 @@ const registerUser = (req, res) => {
     User
         .create(data)
         .then((user) => {
-            const tokenBody = {};
-            try {
-                tokenBody.token = UserModel.generateJwt(user);
-            }
-            catch(err) {
-                throw err
-            }
-            
-            util.sendJsonResponse(res, 201, tokenBody);
+            util.sendJsonResponse(res, 201, _generateJwtResponse(user));
         })
         .catch((err) => {
             util.sendJsonResponse(res, 400, err);
@@ -48,10 +41,33 @@ const registerUser = (req, res) => {
 };
 
 const loginUser = (req, res) => {
+    if (!req.body.username || !req.body.password) {
+        const err = util.genErr('username and password fields both required');
+        util.sendJsonResErr(res, err);
+        return;
+    }
 
+    passport.authenticate('local', function(err, user, info) {
+        if (err) {
+            util.sendJsonResponse(res, 400, err);
+            return;
+        }
+
+        if (user) {
+            util.sendJsonResErr(res, status, _generateJwtResponse(user));
+        } else {
+            // User is unauthorized
+            util.sendJsonResponse(res, 401, info);
+        }
+    })(req, res);
 };
 
 
+const _generateJwtResponse = (userInstance) => {
+    return {
+        token: UserModel.generateJwt(userInstance)
+    }
+};
 
 module.exports = {
     registerUser : registerUser,

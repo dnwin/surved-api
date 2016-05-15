@@ -41,6 +41,12 @@ module.exports = function(sequelize, DataTypes) {
         }
     }, {
         instanceMethods: {
+            initWithData: function(data) {
+                this.email = data.email;
+                this.firstName = data.firstName;
+                this.lastName = data.lastName;
+                this.setPassword(data.password);
+            },
             setPassword: function(password) {
                 this.salt = crypto.randomBytes(16).toString('hex');
                 this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');

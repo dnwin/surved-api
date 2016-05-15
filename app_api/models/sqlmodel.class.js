@@ -31,14 +31,13 @@ class SequelizeModel {
      *  @returns { Promise }
      *  
      */
-    constructor(sequelizeModel, viewOptions, processBuildCallback, processFkCallback) {
+    constructor(sequelizeModel, viewOptions, processFkCallback) {
         // PUBLIC
         this.sequelizeModel = sequelizeModel;
         this.viewOptions = viewOptions || null;
         this.primaryKeyString = sequelizeModel.primaryKeyField;
 
         // PRIVATE
-        this._processBuildCallback = processBuildCallback;
         this._processFkCallback = processFkCallback;
 
     };
@@ -229,8 +228,18 @@ class SequelizeModel {
     _initBuild(build, data, customViewOptions) {
         const self = this;
         const promiseCb = (resolve, reject) => {
-            // Build
-            self._processBuildCallback(build, data);
+            // Check for method implementation.
+            if (build.initWithData === 'undefined') {
+                reject("sequelize instance needs to define function initWithData(data): as an instance method");
+                return;
+            }
+            try {
+                build.initWithData(data);
+            }
+            catch(e) {
+                reject(e);
+            }
+            
             build
                 .save()
                 .then(() => {

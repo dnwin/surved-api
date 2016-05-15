@@ -11,15 +11,6 @@ const
 class User extends SequelizeModel {
 
     constructor() {
-        // Process data
-        const buildCallback = (newUser, data) => {
-            newUser.email = data.email;
-            newUser.firstName = data.firstName;
-            newUser.lastName = data.lastName;
-            newUser.setPassword(data.password);
-            
-            return newUser;
-        };
     
         // No processing after record creation
         const tablesCallback = (build, data) => {
@@ -38,7 +29,7 @@ class User extends SequelizeModel {
             }
         };
 
-        super(models.User, viewOptions, buildCallback, tablesCallback);
+        super(models.User, viewOptions, tablesCallback);
     };
 
     /**
