@@ -69,7 +69,6 @@ const loginUser = (req, res) => {
     })(req, res);
 };
 
-
 const _generateJwtResponse = (userInstance) => {
     return {
         token: UserModel.generateJwt(userInstance)

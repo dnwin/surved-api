@@ -43,7 +43,7 @@ class User extends SequelizeModel {
         expiry.setDate(expiry.getDate() + 7);
 
         return jwt.sign({
-            userId : userInstance.userId,
+            id : userInstance.id,
             username: userInstance.username,
             email: userInstance.email,
             firstName: userInstance.firstName,

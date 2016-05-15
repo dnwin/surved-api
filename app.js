@@ -35,13 +35,14 @@ const routesAuth = require('./app_api/routes/auth.index.route');
 
 // Middleware
 const ensureAuthenticated = require('./app_api/middleware/jwtauth.middleware');
+const ensureAdmin = require('./app_api/middleware/authadmin.middleware');
 const forward404 = require('./app_api/middleware/forward404.middleware');
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', routesAuth);
 // Require authentication
-app.use('/admin/v1', ensureAuthenticated.middleware, routesAdmin);
+app.use('/admin/v1', ensureAuthenticated.middleware, ensureAdmin.middleware, routesAdmin);
 app.use('/api/v1', ensureAuthenticated.middleware, routesApi);
 // catch 404 and forward to error handler
 app.use(forward404.middleware);

@@ -27,7 +27,28 @@ describe('Authentication', function() {
         "email" : "test@user.com",
         "password" : "testpassword"
     };
-    
+
+    const createUser = (email, password, role) => {
+        return new Promise((resolve, reject) => {
+            models.User
+                .create({
+                    email: email
+                })
+                .then((user) => {
+                    user.setPassword(password);
+                    user.status = 'active';
+                    user.role = role;
+
+                    return user.save();
+                })
+                .then((user) => {
+                    resolve(user);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        })
+    };
     
     it('registers user successfully and returns a token', (done) => {
         request(app)
@@ -42,17 +63,8 @@ describe('Authentication', function() {
     
 
     it('logins user successfully and returns a token', (done) => {
-        models.User
-            .create({
-                email: "a@a.com"
-            })
-            .then(function(user) {
-                user.setPassword("a");
-                user.status = 'active';
-    
-                return user.save();
-            })
-            .then(function(user){
+        createUser('a@a.com', 'a', 'user')
+            .then((user) => {
                 request(app)
                     .post('/auth/login')
                     .set('Content-Type', 'application/json')
@@ -64,8 +76,7 @@ describe('Authentication', function() {
                         expect(res.body.token).to.be.ok();
                         done();
                     })
-        })
-
+            })
     });
 
     it('returns an error on missing email', (done) => {
