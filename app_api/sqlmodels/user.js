@@ -53,7 +53,10 @@ module.exports = function(sequelize, DataTypes) {
         },
         classMethods: {
             associate: function(models) {
-                
+                User.belongsToMany(models.Answer, {
+                    through: models.UserAnswer,
+                    foreignKey: 'Users_id'
+                })
             }
         }
     });
