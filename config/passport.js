@@ -1,5 +1,5 @@
 /**
- * Created by dennis on 1/25/16.
+ * Created by dennis on 5/15/16.
  */
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -13,13 +13,13 @@ passport.use(new LocalStrategy({
     function(username, password, done) {
         User.findOne({
             where: {
-                username: username
+                email: username
             }
         }).then(function(user) {
             // Check for existing email
             if (!user) {
                 return done(null, false, {
-                    message: 'Incorrect username'
+                    message: 'Incorrect email'
                 });
             }
 

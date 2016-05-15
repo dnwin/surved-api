@@ -15,7 +15,8 @@ const
 const User = new UserModel();
 
 /**
- * Registers a new user
+ * Registers a new user using fields fistName, lastName, password, email
+ * Responds with a JWT token on success
  * @param req
  * @param res
  */
@@ -40,9 +41,15 @@ const registerUser = (req, res) => {
         });
 };
 
+/**
+ * Logins a new user using username and password
+ * Responds with JWT token on success.
+ * @param req
+ * @param res
+ */
 const loginUser = (req, res) => {
-    if (!req.body.username || !req.body.password) {
-        const err = util.genErr('username and password fields both required');
+    if (!req.body.email || !req.body.password) {
+        const err = util.genErr('email and password fields both required');
         util.sendJsonResErr(res, err);
         return;
     }
@@ -54,7 +61,7 @@ const loginUser = (req, res) => {
         }
 
         if (user) {
-            util.sendJsonResErr(res, status, _generateJwtResponse(user));
+            util.sendJsonResponse(res, 200, _generateJwtResponse(user));
         } else {
             // User is unauthorized
             util.sendJsonResponse(res, 401, info);

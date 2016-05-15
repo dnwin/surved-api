@@ -9,10 +9,12 @@ const
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
+    passport = require('passport'),
     app = express();
 
-// Configure DB
+// Configure DB & Passport
 require(path.join(__dirname, 'config', 'knex.js'));
+require(path.join(__dirname, 'config', 'passport.js'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +26,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
 
 // Routes
 const routesAdmin = require('./app_api/routes/admin.index.route');

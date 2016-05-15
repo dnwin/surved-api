@@ -37,7 +37,8 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.ENUM,
             allowNull: false,
             values: ['active', 'pending', 'inactive'],
-            defaultValue: 'pending'
+            // TODO: Set default to 'pending' and write email verification system.
+            defaultValue: 'active'
         }
     }, {
         instanceMethods: {
