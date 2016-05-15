@@ -11,7 +11,7 @@
  * @returns {*|{}|Model}
  */
 module.exports = function(sequelize, DataTypes) {
-    var Question = sequelize.define("Question", {
+    var QuestionType = sequelize.define("QuestionType", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -32,18 +32,12 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         classMethods: {
             associate: function(models) {
-                Question.belongsTo(models.Survey, {
-                    foreignKey: 'Surveys_id'
-                });
-                Question.hasMany(models.Answer, {
-                    foreignKey: 'Questions_id'
-                });
-                Question.belongsTo(models.QuestionType, {
+                QuestionType.hasMany(models.Question, {
                     foreignKey: 'QuestionTypes_id'
-                })
+                });
             }
         }
     });
 
-    return Question;
+    return QuestionType;
 };

@@ -27,4 +27,8 @@ describe('models/index', function () {
     it('returns the UserAnswer model', function () {
         expect(models.UserAnswer).to.be.ok();
     });
+
+    it('returns the QuestionType model', function () {
+        expect(models.QuestionType).to.be.ok();
+    });
 });

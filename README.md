@@ -62,3 +62,33 @@ Key | Value | Description
 `Authorization` | `Bearer yourtokengoeshere` | Authorization token request header
 
 
+## Admin API `/admin/v1/*`
+Route designed for administration of all tables. The user token accessing it will need to be role `admin`.
+
+###### Filtering the API
+- You can match fields with values within a List All route by using:
+```
+GET /api/route/?filter[field]=value
+```
+
+- You can also filter for multiple fields:
+```
+?filter[name]=ac&filter[website]=goog&filter[companyId]=2
+```
+
+###### Pagination Limits and Offset
+- You can limit how many records by using:
+```
+GET /api/route/?page[limit]=5
+```
+
+- You can offset records by using (offset=1 means you exclude the first record):
+```
+GET /api/route/?page[offset]=5
+```
+
+- You can combine the two to simulate pagination (show 10 pages at a time):
+Page 1: `/api/route/?page[offset]=0&page[limit]=10`
+Page 2: `/api/route/?page[offset]=10&page[limit]=10`
+
+
