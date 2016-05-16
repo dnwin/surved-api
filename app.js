@@ -34,18 +34,18 @@ const routesApi = require('./app_api/routes/api.index.route');
 const routesAuth = require('./app_api/routes/auth.index.route');
 
 // Middleware
-const ensureAuthenticated = require('./app_api/middleware/jwtauth.middleware');
-const ensureAdmin = require('./app_api/middleware/authadmin.middleware');
-const forward404 = require('./app_api/middleware/forward404.middleware');
+const ensureAuthenticated = require('./app_api/middleware/jwtauth.middleware').middleware;
+const ensureAdmin = require('./app_api/middleware/authadmin.middleware').middleware;
+const forward404 = require('./app_api/middleware/forward404.middleware').middleware;
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', routesAuth);
 // Require authentication
-app.use('/admin/v1', ensureAuthenticated.middleware, ensureAdmin.middleware, routesAdmin);
-app.use('/api/v1', ensureAuthenticated.middleware, routesApi);
+app.use('/admin/v1', ensureAuthenticated, ensureAdmin, routesAdmin);
+app.use('/api/v1', ensureAuthenticated, routesApi);
 // catch 404 and forward to error handler
-app.use(forward404.middleware);
+app.use(forward404);
 
 
 //========================= Error Handlers =============================//
