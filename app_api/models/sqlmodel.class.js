@@ -216,14 +216,14 @@ class SequelizeModel {
         const self = this;
         const promiseCb = (resolve, reject) => {
 
-            if (build.initWithData !== 'undefined') {
+            if (build.initWithData) {
                 build.initWithData(data);
             }
             
             build
                 .save()
                 .then(() => {
-                    if (self._processFkCallback !== 'undefined') {
+                    if (self._processFkCallback) {
                         return self._processFkCallback(build, data);
                     } 
                     else {
@@ -266,7 +266,7 @@ class SequelizeModel {
      * @param build
      * @param data
      * @param sqlModel
-     * @param customSqlModelName - Used to overwrite the setRelationship method for custom named relationships.
+     * @param customSqlModelName - (null, Optional) Used to overwrite the setRelationship method for custom named relationships.
      * @param mutableAsyncArr
      */
     static buildManyToOne(build, data, sqlModel, customSqlModelName, mutableAsyncArr) {

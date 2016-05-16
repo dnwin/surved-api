@@ -18,7 +18,7 @@ class Answer extends SequelizeModel {
 
         const processDataCallback = (build, data) => {
             const asyncCalls = [];
-            SequelizeModel.buildManyToOne(build, data, models.Question, asyncCalls);
+            SequelizeModel.buildManyToOne(build, data, models.Question, null, asyncCalls);
 
             return bluebird.all(asyncCalls);
         };
