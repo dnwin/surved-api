@@ -5,7 +5,7 @@
 
 /**
  * UserAnswers Table
- * Join table to record a user's selected answers.
+ * Join table to record a client's selected answers.
  * @param sequelize
  * @param DataTypes
  * @returns {*|{}|Model}

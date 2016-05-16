@@ -24,7 +24,7 @@ describe('Authentication', function() {
     const registrationBuild = {
         "firstName" :"test",
         "lastName" : "user",
-        "email" : "test@user.com",
+        "email" : "test@client.com",
         "password" : "testpassword"
     };
 
@@ -50,7 +50,7 @@ describe('Authentication', function() {
         })
     };
     
-    it('registers user successfully and returns a token', (done) => {
+    it('registers client successfully and returns a token', (done) => {
         request(app)
             .post('/auth/register')
             .send(registrationBuild)
@@ -62,7 +62,7 @@ describe('Authentication', function() {
     });
     
 
-    it('logins user successfully and returns a token', (done) => {
+    it('logins client successfully and returns a token', (done) => {
         createUser('a@a.com', 'a', 'user')
             .then((user) => {
                 request(app)

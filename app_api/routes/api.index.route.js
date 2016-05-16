@@ -6,10 +6,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/questions', (req, res) => {
-    res.json({
-        message: 'success'
-    })
-});
+const surveyRoute = require('./client/survey.client.route.js');
+
+router.use('/surveys', surveyRoute);
 
 module.exports = router;

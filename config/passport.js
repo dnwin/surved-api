@@ -43,7 +43,7 @@ passport.use(new LocalStrategy({
                     message: 'Incorrect password'
                 })
             }
-            // Success - Return the user object
+            // Success - Return the client object
             return done(null, user);
         }).catch(function(err) {
             done(err);

@@ -2,7 +2,7 @@
  * Created by dennis on 5/15/16.
  */
 /**
- * Middleware that verifies an admin user after JWT authentication.
+ * Middleware that verifies an admin client after JWT authentication.
  */
 
 "use strict";
@@ -14,7 +14,7 @@ const ensureAdmin = (req, res, next) => {
         .findById(userId)
         .then((user) => {
             if (!user) {
-                next('no user found');
+                next('no client found');
             } 
             
             // Unauthorized if not admin

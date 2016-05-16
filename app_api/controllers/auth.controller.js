@@ -15,7 +15,7 @@ const
 const User = new UserModel();
 
 /**
- * Registers a new user using fields fistName, lastName, password, email
+ * Registers a new client using fields fistName, lastName, password, email
  * Responds with a JWT token on success
  * @param req
  * @param res
@@ -42,7 +42,7 @@ const registerUser = (req, res) => {
 };
 
 /**
- * Logins a new user using username and password
+ * Logins a new client using username and password
  * Responds with JWT token on success.
  * @param req
  * @param res
