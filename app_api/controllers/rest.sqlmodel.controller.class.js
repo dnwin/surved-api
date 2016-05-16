@@ -3,6 +3,10 @@
  */
 "use strict";
 
+/**
+ * This class will auto-generate a RESTful controller using an instance of sqlmodel.class(SequelizeModel).
+ * It comes with built in functionality for filtering and pagination using sequelize queries.
+ */
 class RestController {
 
     /**

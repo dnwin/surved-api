@@ -47,6 +47,7 @@ module.exports = function(sequelize, DataTypes) {
                 this.firstName = data.firstName;
                 this.lastName = data.lastName;
                 this.setPassword(data.password);
+                this.role = data.role;
             },
             setPassword: function(password) {
                 this.salt = crypto.randomBytes(16).toString('hex');

@@ -9,10 +9,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/questions', (req, res) => {
-    res.json({
-        message: 'success'
-    })
-});
+// Routes
+const surveyRoute = require('./admin/survey.admin.route');
+const questionRoute = require('./admin/question.admin.route');
+
+router.use('/surveys', surveyRoute);
+router.use('/questions', questionRoute);
 
 module.exports = router;

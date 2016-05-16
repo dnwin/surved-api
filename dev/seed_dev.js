@@ -15,13 +15,12 @@ const seedUser = (email, password, role) => {
         email: email,
         firstName: email,
         lastName: email,
-        password: password
+        password: password,
+        role: role
     };
     return User
         .create(userBuild)
         .then((user) => {
-            user.status = 'active';
-            user.role = role;
             return user.save();
         })
 };
