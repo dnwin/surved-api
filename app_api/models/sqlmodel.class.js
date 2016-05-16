@@ -3,8 +3,7 @@
  */
 "use strict";
 const 
-    util = require('../util/util.js'),
-    bluebird = require('bluebird');
+    util = require('../util/util.js');
 
 /**
  * Class SqlModel
@@ -16,14 +15,7 @@ class SequelizeModel {
      * 
      * @param sequelizeModel - A sequelize model from the /app_api/sqlmodels folder
      * @param viewOptions - Sequelize custom viewOptions if you'd prefer all results to return with included or excluded data.
-     * 
-     * @param processBuildCallback - 
-     *  Required callback function containing the parameters (&build, &data). 
-     *  Use this to set your values from req.body to the values in the sequelize instance. 
-     *  NEEDS TO RETURN BUILD
-     *  (Ex: build.name = data.name; build.createdAt = new Date();) 
-     *  @returns { &build }
-     *  
+     *
      * @param processFkCallback -
      *  Requried callback function with parameters (&build, data)
      *  Process any additional processing after creation of the record or instance such as 
@@ -39,14 +31,9 @@ class SequelizeModel {
 
         // PRIVATE
         this._processFkCallback = processFkCallback;
-
     };
 
-    /**
-     * PUBLIC METHODS
-     */
-
-    // all, create, fetch, update, destroy
+//======================================= PUBLIC =======================================//
 
     /**
      * all - Get all records
@@ -228,22 +215,20 @@ class SequelizeModel {
     _initBuild(build, data, customViewOptions) {
         const self = this;
         const promiseCb = (resolve, reject) => {
-            // Check for method implementation.
-            if (build.initWithData === 'undefined') {
-                reject("sequelize instance needs to define function initWithData(data): as an instance method");
-                return;
-            }
-            try {
+
+            if (build.initWithData !== 'undefined') {
                 build.initWithData(data);
-            }
-            catch(e) {
-                reject(e);
             }
             
             build
                 .save()
                 .then(() => {
-                    return self._processFkCallback(build, data)
+                    if (self._processFkCallback !== 'undefined') {
+                        return self._processFkCallback(build, data);
+                    } 
+                    else {
+                        return Promise.resolve();
+                    }
                 })
                 .then(() => {
                     return build.save();

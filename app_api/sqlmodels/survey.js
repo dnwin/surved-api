@@ -31,6 +31,12 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: 'active'
         }
     }, {
+        instanceMethods: {
+            initWithData: function(data) {
+                this.name = data.name;
+                this.description = data.description;
+            }
+        },
         classMethods: {
             associate: function(models) {
                 Survey.hasMany(models.Question, {

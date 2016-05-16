@@ -2,7 +2,7 @@
  * Created by dennis on 5/15/16.
  */
 "use strict";
-
+const bluebird = require('bluebird');
 /**
  * Answers Table
  * A possible answer to a question. Answer records can have nonunique names (
@@ -30,6 +30,11 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: 'active'
         }
     }, {
+        instanceMethods: {
+            initWithData: function(data) {
+                this.name = data.name;
+            }
+        },
         classMethods: {
             associate: function(models) {
                 Answer.belongsTo(models.Question, {

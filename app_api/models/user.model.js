@@ -5,20 +5,11 @@
 const
     SequelizeModel = require('./sqlmodel.class'),
     models = require('../sqlmodels'),
-    bluebird = require('bluebird'),
     jwt = require('jsonwebtoken');
 
 class User extends SequelizeModel {
 
     constructor() {
-    
-        // No processing after record creation
-        const tablesCallback = (build, data) => {
-            return new Promise((resolve, reject) => {
-                resolve();
-            });
-        };
-
         // Exclude salt, hash from default return values.
         const viewOptions = {
             where: {
@@ -29,7 +20,8 @@ class User extends SequelizeModel {
             }
         };
 
-        super(models.User, viewOptions, tablesCallback);
+        // No processing after record creation
+        super(models.User, viewOptions, null);
     };
 
     /**
