@@ -53,6 +53,19 @@ Example:
   "password" : "testpassword"
 }`
 
+###### Login `POST /auth/login`
+Login with an existing account. Will respond with a JWT token on correct credentials.
+
+Key | Type | Description | Constraints
+--- | --- | --- | ---
+email | Str | User email | not-null
+password | Str | User password | not-null
+Example:
+`{
+ "email" : "existing@email.com",
+ "password" : "secret"
+}`
+
 ---
 
 ## API
@@ -114,18 +127,23 @@ Page 1: `/api/route/?page[offset]=0&page[limit]=10`
 Page 2: `/api/route/?page[offset]=10&page[limit]=10`
 
 #### Routes
-- The following REST routes allow the following methods: `GET /api/route/` , `GET /api/route/:id`, `POST /api/route/`,
-`PUT /api/route/:id`, `DELETE /api/route/:id`
+- The following REST routes allow the following methods:
+* `GET /api/route/`
+* `GET /api/route/:id`
+* `POST /api/route/`
+* `PUT /api/route/:id`
+* `DELETE /api/route/:id`
+
 - Calling `DELETE` on record will set the `status` field to `inactive` in the database.
 - Some routes will allow for posting of foreign keys (marked by Ref `TableName`). The format is: `TableName : { id: 1 } `
 
-###### Surveys `/api/v1/surveys/:id`
+###### Surveys `/admin/v1/surveys/:id`
 Field | Type | Description | Constraints
 --- | --- | --- | ---
 name | Str | Name of survey | Not-null
 description | Str | Description of survey |
 
-###### Questions `/api/v1/questions/:id`
+###### Questions `/admin/v1/questions/:id`
 Field | Type | Description | Constraints
 --- | --- | --- | ---
 name | Str | The question string | Not-null
@@ -144,18 +162,18 @@ Example:
 }`
 
 
-###### QuestionTypes `/api/v1/questiontypes/:id`
+###### QuestionTypes `/admin/v1/questiontypes/:id`
 Field | Type | Description | Constraints
 --- | --- | --- | ---
 name | Str | Name of QuestionType | Not-null
 
-###### Answers `/api/v1/answers/:id`
+###### Answers `/admin/v1/answers/:id`
 Field | Type | Description | Constraints
 --- | --- | --- | ---
 name | Str | The answer string | Not-null
 Question | Ref `Question` | Associated question id |
 
-###### UserAnswers `/api/v1/useranswers/:id`
+###### UserAnswers `/admin/v1/useranswers/:id`
 Field | Type | Description | Constraints
 --- | --- | --- | ---
 User | Ref `User` | Associated user id | Not-null
