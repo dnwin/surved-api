@@ -3,6 +3,7 @@ SurvedAPI
 * API for Surved survey app.
 * Built on a Javascript stack: Sequelize.js, Node.js, Express.js
 
+
 ###### Server requirements
 * Linux (Ubuntu 14+)
 * MySQL
@@ -25,6 +26,10 @@ Key | Value | Description
 
 ###### Tests
 * You can run the tests by executing `npm test`.
+
+###### About the API
+* All API routes use the `JSON(application/json)` format.
+* All routes except authentication are secured by a JSON Web token.
 
 ---
 
@@ -61,6 +66,23 @@ Key | Value | Description
 --- | --- | ---
 `Authorization` | `Bearer yourtokengoeshere` | Authorization token request header
 
+## Client API `/api/v1`
+Route for usage in client application.
+
+###### GET `/api/v1/surveys`
+Returns all surveys available along with questions and answers.
+
+###### POST `/api/v1/useranswers`
+Post all answers to a survey.
+Should be in the format:
+`{
+    Answers: [{
+        id: 1
+    }, {
+        id: 2
+    }]
+}`
+Client should post an array of id's belonging to single survey at a time.
 
 ## Admin API `/admin/v1/*`
 Route designed for administration of all tables. The user token accessing it will need to be role `admin`.
@@ -91,4 +113,50 @@ GET /api/route/?page[offset]=5
 Page 1: `/api/route/?page[offset]=0&page[limit]=10`
 Page 2: `/api/route/?page[offset]=10&page[limit]=10`
 
+#### Routes
+- The following REST routes allow the following methods: `GET /api/route/` , `GET /api/route/:id`, `POST /api/route/`,
+`PUT /api/route/:id`, `DELETE /api/route/:id`
+- Calling `DELETE` on record will set the `status` field to `inactive` in the database.
+- Some routes will allow for posting of foreign keys (marked by Ref `TableName`). The format is: `TableName : { id: 1 } `
 
+###### Surveys `/api/v1/surveys/:id`
+Field | Type | Description | Constraints
+--- | --- | --- | ---
+name | Str | Name of survey | Not-null
+description | Str | Description of survey |
+
+###### Questions `/api/v1/questions/:id`
+Field | Type | Description | Constraints
+--- | --- | --- | ---
+name | Str | The question string | Not-null
+Survey | Ref `Survey` | id for associated survey |
+QuestionType | Ref `QuestionType` | Associated QuestionType id |
+
+Example:
+`{
+   "name" : "How do I use this api?",
+   "Survey" : {
+       "id" : 1
+   },
+   "QuestionType" : {
+       "id" : 2
+   }
+}`
+
+
+###### QuestionTypes `/api/v1/questiontypes/:id`
+Field | Type | Description | Constraints
+--- | --- | --- | ---
+name | Str | Name of QuestionType | Not-null
+
+###### Answers `/api/v1/answers/:id`
+Field | Type | Description | Constraints
+--- | --- | --- | ---
+name | Str | The answer string | Not-null
+Question | Ref `Question` | Associated question id |
+
+###### UserAnswers `/api/v1/useranswers/:id`
+Field | Type | Description | Constraints
+--- | --- | --- | ---
+User | Ref `User` | Associated user id | Not-null
+Answer | Ref `Answer` | Associated answer id |
