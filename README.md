@@ -34,10 +34,10 @@ Key | Value | Description
 ---
 
 ## Authentication `/auth/*`
-This route does not require an authentication token
+This route does not require an authentication token.
 
 ###### Registration `GET /auth/register`
-Allows the user to register for a new account. Will respond with a JWT token on success.
+If the user does not already have an account, they may register a new account by using this endpoint. The response will contain a JSON Web Token as shown below.
 
 Key | Type | Description | Constraints
 --- | --- | --- | ---
@@ -45,26 +45,45 @@ email | Str | User email | not-null, unique
 password | Str | User password, stored as a hash |
 firstName | Str | User first name |
 lastName | Str | User last name |
-Example:
-`{
+role | Str | User role |
+Example Request Body:
+```json
+{
   "email" : "test@user.com",
   "firstName" :"test",
   "lastName" : "user",
-  "password" : "testpassword"
-}`
+  "password" : "testpassword",
+  "role" : "user"
+}
+```
 
+Example Response:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb3NlY2FuQGhlbHAuY29tIiwiZmlyc3ROYW1lIjoiSm9zZSIsImxhc3ROYW1lIjoiU290byIsImV4cCI6MTQ3Njc2MjQzMywiaWF0IjoxNDc2MTU3NjMzfQ.tbxBpx37diBUqQ4pDnP4CH5mTa7-aLyT5CVKlkSxzR8"
+}
+```
 ###### Login `POST /auth/login`
-Login with an existing account. Will respond with a JWT token on correct credentials.
+If the user has an account already registered, they may log in using this endpoint. The response will contain a JSON Web Token as shown below.
 
 Key | Type | Description | Constraints
 --- | --- | --- | ---
 email | Str | User email | not-null
 password | Str | User password | not-null
-Example:
-`{
+Example Request Body:
+```json
+{
  "email" : "existing@email.com",
  "password" : "secret"
-}`
+}
+```
+
+Example Response:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb3NlY2FuQGhlbHAuY29tIiwiZmlyc3ROYW1lIjoiSm9zZSIsImxhc3ROYW1lIjoiU290byIsImV4cCI6MTQ3Njc2MjQzMywiaWF0IjoxNDc2MTU3NjMzfQ.tbxBpx37diBUqQ4pDnP4CH5mTa7-aLyT5CVKlkSxzR8"
+}
+```
 
 ---
 
