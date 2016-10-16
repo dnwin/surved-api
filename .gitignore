@@ -3,5 +3,6 @@ logs
 npm-debug.log*
 .idea/
 .DS_Store
+node_modules
 .env
 app_client/build/*
