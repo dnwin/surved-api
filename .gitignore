@@ -5,3 +5,4 @@ npm-debug.log*
 .DS_Store
 .env
 app_client/build/*
+node_modules/
