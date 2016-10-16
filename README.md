@@ -12,6 +12,8 @@ SurvedAPI
 ###### Installation
 * Clone the repository
 * Install modules using `npm install`
+* Install mysql `sudo apt-get install mysql-server`
+* Create user/database and edit `config/config-db.json` with the correct credentials
 * Start app with `npm start`
 
 ###### `.env` Configuration
